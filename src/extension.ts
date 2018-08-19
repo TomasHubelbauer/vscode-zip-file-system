@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
         const zip = new JSZip();
         await zip.loadAsync(await fsExtra.readFile(uri.fsPath), { createFolders: true });
         const { ctime, mtime, size } = await fsExtra.stat(uri.fsPath);
-        context.subscriptions.push(vscode.workspace.registerFileSystemProvider(scheme, new ZipFileSystemProvider(zip, ctime, mtime, size)));
+        context.subscriptions.push(vscode.workspace.registerFileSystemProvider(scheme, new ZipFileSystemProvider(zip, ctime, mtime, size), { isReadonly: true, isCaseSensitive: true }));
         registered.add(scheme);
         vscode.workspace.updateWorkspaceFolders(vscode.workspace.workspaceFolders!.length, 0, { uri: vscode.Uri.parse(scheme + ':/'), name: basename(uri.fsPath) + ' File System' });
     }));
@@ -78,7 +78,7 @@ class ZipFileSystemProvider implements vscode.FileSystemProvider {
             type: entry[1].dir ? vscode.FileType.Directory : vscode.FileType.File,
             ctime: entry[1].date.valueOf(),
             mtime: entry[1].date.valueOf(),
-            size: 0, // TODO: See if this breaks anything and we need to read the real size from the buffer
+            size: 0,
         };
     }
 

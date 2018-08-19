@@ -1,3 +1,4 @@
 # Consider `onFileSystem` activation event
 
-Would need to prefix the schemes with a common string and see if `prefix*` would work.
+Would need to rework so that the scheme is `zip` and the URI contains the ZIP file path as well as the path within the ZIP file.
+It's not possible to use globs or regexes with the `onFileSystem` activation event.

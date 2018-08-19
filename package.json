@@ -2,8 +2,12 @@
     "name": "zip-file-system",
     "displayName": "ZIP File System",
     "description": "Mounts a virtual file system directory in your workspace allowing browsing a ZIP file",
-    "version": "0.0.1",
+    "version": "0.5.0",
     "publisher": "TomasHubelbauer",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TomasHubelbauer/vscode-zip-file-system.git"
+    },
     "engines": {
         "vscode": "^1.26.0"
     },

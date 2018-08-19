@@ -1,7 +1,5 @@
-# Change Log
-All notable changes to the "zip-file-system" extension will be documented in this file.
+# Changelog
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## `0.5.0` (2018-08-19)
 
-## [Unreleased]
-- Initial release
+Release the initial version which allows mounting ZIP files as readonly FS directories in the workspace.
