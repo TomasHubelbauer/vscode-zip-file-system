@@ -92,9 +92,17 @@ class ZipFileSystemProvider implements vscode.FileSystemProvider {
         throw new Error("Method not implemented.");
     }
 
-    readFile(uri: vscode.Uri): Uint8Array | Thenable<Uint8Array> {
-        debugger;
-        throw new Error("Method not implemented.");
+    public readFile(uri: vscode.Uri): Promise<Uint8Array> {
+        const entry = this.find(uri);
+        if (entry === undefined) {
+            throw new Error('No file');
+        }
+
+        if (entry[1].dir) {
+            throw new Error('Not file');
+        }
+
+        return entry[1].async('nodebuffer', a => console.log(a));
     }
 
     writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean; overwrite: boolean; }): void | Thenable<void> {
@@ -147,15 +155,22 @@ class ZipFileSystemProvider implements vscode.FileSystemProvider {
 
     private find(uri: vscode.Uri): [string, JSZip.JSZipObject] {
         const entries: [string, JSZip.JSZipObject][] = [];
-        const externalPath = this.break(uri.path);
+        const externalPath = this.break(uri.path); // demo nested
 
         // Use `forEach` to benefit from `relativePath` calculation (ZIP `root` is not always just `/`)
         this.zip.forEach((relativePath, entry) => {
-            const internalPath = this.break(relativePath);
+            const internalPath = this.break(relativePath); // demo, demo nested, demo nested th, demo first, demo second
 
-            // Look for things nested exactly one level deep
+            // Look paths with the same amount of components
             if (internalPath.length !== externalPath.length) {
                 return;
+            }
+
+            // Verify path equality
+            for (let index = 0; index < externalPath.length; index++) {
+                if (internalPath[index] !== externalPath[index]) {
+                    return;
+                }
             }
 
             entries.push([internalPath.pop()!, entry]);
