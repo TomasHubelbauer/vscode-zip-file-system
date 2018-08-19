@@ -7,8 +7,6 @@ import * as fsExtra from 'fs-extra';
 const registered = new Set<string>();
 
 export function activate(context: vscode.ExtensionContext) {
-    vscode.window.showInformationMessage('Activated');
-
     // Unregister removed folders so that they can be registered again by the command
     vscode.workspace.onDidChangeWorkspaceFolders(event => {
         for (const removed of event.removed) {
@@ -61,6 +59,10 @@ class ZipFileSystemProvider implements vscode.FileSystemProvider {
 
         // Handle VS Code looking for workspace directory configuration settings
         if (path === '/.vscode') {
+            return { type: vscode.FileType.Unknown, ctime: this.ctime, mtime: this.mtime, size: 0 };
+        }
+
+        if (path === '/.git/config') {
             return { type: vscode.FileType.Unknown, ctime: this.ctime, mtime: this.mtime, size: 0 };
         }
 
