@@ -87,7 +87,7 @@ class ZipFileSystemProvider implements vscode.FileSystemProvider {
         return entries.map(([name, entry]) => [name, entry.dir ? vscode.FileType.Directory : vscode.FileType.File] as [string, vscode.FileType]);
     }
 
-    createDirectory(uri: vscode.Uri): void | Thenable<void> {
+    createDirectory(_uri: vscode.Uri): void | Thenable<void> {
         debugger;
         throw new Error("Method not implemented.");
     }
@@ -105,17 +105,17 @@ class ZipFileSystemProvider implements vscode.FileSystemProvider {
         return entry[1].async('nodebuffer', a => console.log(a));
     }
 
-    writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean; overwrite: boolean; }): void | Thenable<void> {
+    writeFile(_uri: vscode.Uri, _content: Uint8Array, _options: { create: boolean; overwrite: boolean; }): void | Thenable<void> {
         debugger;
         throw new Error("Method not implemented.");
     }
 
-    delete(uri: vscode.Uri, options: { recursive: boolean; }): void | Thenable<void> {
+    delete(_uri: vscode.Uri, _options: { recursive: boolean; }): void | Thenable<void> {
         debugger;
         throw new Error("Method not implemented.");
     }
 
-    rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean; }): void | Thenable<void> {
+    rename(_oldUri: vscode.Uri, _newUri: vscode.Uri, _options: { overwrite: boolean; }): void | Thenable<void> {
         debugger;
         throw new Error("Method not implemented.");
     }
