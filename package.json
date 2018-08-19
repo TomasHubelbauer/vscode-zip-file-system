@@ -1,0 +1,67 @@
+{
+    "name": "zip-file-system",
+    "displayName": "ZIP File System",
+    "description": "Mounts a virtual file system directory in your workspace allowing browsing a ZIP file",
+    "version": "0.0.1",
+    "publisher": "TomasHubelbauer",
+    "engines": {
+        "vscode": "^1.26.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "workspaceContains:**/*.zip",
+        "onLanguage:zip"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "zip",
+                "aliases": [
+                    "Zip Archive",
+                    "ZIP"
+                ],
+                "extensions": [
+                    ".zip"
+                ]
+            }
+        ],
+        "commands": [
+            {
+                "command": "extension.mountZipFileSystem",
+                "title": "Mount ZIP file system to workspace"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "resourceLangId == zip",
+                    "command": "extension.mountZipFileSystem",
+                    "group": "navigation"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
+    },
+    "dependencies": {
+        "@types/fs-extra": "^5.0.4",
+        "@types/jszip": "^3.1.4",
+        "fs-extra": "^7.0.0",
+        "jszip": "^3.1.5"
+    }
+}
