@@ -2,7 +2,7 @@
     "name": "zip-file-system",
     "displayName": "ZIP File System",
     "description": "Mounts a virtual file system directory in your workspace allowing browsing a ZIP file",
-    "version": "0.5.0",
+    "version": "1.0.0",
     "publisher": "TomasHubelbauer",
     "repository": {
         "type": "git",
@@ -16,7 +16,8 @@
     ],
     "activationEvents": [
         "workspaceContains:**/*.zip",
-        "onLanguage:zip"
+        "onLanguage:zip",
+        "onFileSystem:zip"
     ],
     "main": "./out/extension",
     "contributes": {
